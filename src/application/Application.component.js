@@ -1,9 +1,12 @@
-import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './configuration/routes/Routes';
 
 const Application = () => {
   return (
     <>
-      <h1>Micro app Front-End</h1>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </>
   );
 };
