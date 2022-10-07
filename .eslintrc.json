@@ -4,6 +4,7 @@
     "es2021": true
   },
   "extends": [
+    "react-app",
     "plugin:react/recommended",
     "standard",
     "eslint:recommended",
@@ -21,7 +22,9 @@
   ],
   "rules": {
     "react/react-in-jsx-scrope": "off",
-    "eol-last": ["error", "always"]
+    "eol-last": ["error", "always"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react-hooks/exhaustive-deps": "off"
   },
   "settings": {
     "react": {

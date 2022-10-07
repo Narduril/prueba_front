@@ -6,7 +6,7 @@ import {
   WrapperHeader,
   HeaderContainer,
   Image,
-  CartContainer
+  CartContainer,
 } from './Header.styled';
 
 const Header = () => {
