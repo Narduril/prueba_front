@@ -1,5 +1,36 @@
+import { useEffect, useState } from 'react';
+import useDebounce from '../../common/hooks/use-debounce/use-debounce';
+import InputBox from '../../common/components/presentational/input-box';
+import { WrapperContainer, SearchContainer } from './ProductsList.styled';
+
 const ProductsList = () => {
-  return <></>;
+  /** Local state */
+  const [searchValue, setSearchValue] = useState('');
+
+  /** Custom hook */
+  const debounceSearchValue = useDebounce({ value: searchValue });
+
+  /** Effects */
+  useEffect(() => {
+    console.log(searchValue);
+  }, [debounceSearchValue]);
+
+  /** Events */
+  const onSearch = (value) => setSearchValue(value);
+
+  return (
+    <WrapperContainer>
+      <SearchContainer>
+        <InputBox
+          inputId="outlined-search"
+          inputText="Buscar"
+          inputType="search"
+          inputColor="primary"
+          inputFunc={onSearch}
+        />
+      </SearchContainer>
+    </WrapperContainer>
+  );
 };
 
 export default ProductsList;
