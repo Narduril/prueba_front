@@ -6,3 +6,7 @@ export const MainContainer = styled.div`
   position: relative;
   background-color: #ffffff;
 `;
+
+export const BreadcrumbsContainer = styled.div`
+  margin: 25px;
+`;
