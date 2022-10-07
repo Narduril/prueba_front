@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useDebounce from '../../common/hooks/use-debounce/use-debounce';
-import InputBox from '../../common/components/presentational/input-box';
-import Grid from '../../common/components/presentational/grid';
+import InputBox from '../../common/components/core/input-box';
+import Grid from '../../common/components/shared/grid';
 import {
   WrapperContainer,
   SearchContainer,
