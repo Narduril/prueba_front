@@ -16,3 +16,8 @@ export const SearchContainer = styled.div`
     margin: 25px 50px;
   }
 `;
+
+export const ProductsContainer = styled.section`
+  width: 90%;
+  margin: 0 auto;
+`;
