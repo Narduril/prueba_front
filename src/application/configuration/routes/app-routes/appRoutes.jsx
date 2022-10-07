@@ -14,11 +14,14 @@ export const appRoutes = [
       },
       {
         path: '/products-list',
-        breadcrumb: 'Listado productos',
-        element: <ProductsList />,
         children: [
           {
-            path: '/products-list/:id',
+            path: '/products-list',
+            breadcrumb: 'Listado productos',
+            element: <ProductsList />
+          },
+          {
+            path: '/products-list/:name',
             element: <ProductDetails />
           }
         ]
