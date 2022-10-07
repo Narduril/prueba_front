@@ -7,13 +7,18 @@ export const appRoutes = [
   {
     element: <Layout />,
     children: [
-      { path: '/', element: <Navigate to="/products-list" /> },
+      {
+        path: '/',
+        breadcrumb: 'Home',
+        element: <Navigate to="/products-list" />
+      },
       {
         path: '/products-list',
+        breadcrumb: 'Listado productos',
         element: <ProductsList />,
         children: [
           {
-            path: '/products-list/product-details/:id',
+            path: '/products-list/:id',
             element: <ProductDetails />
           }
         ]
