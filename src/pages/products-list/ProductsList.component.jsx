@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import useDebounce from '../../common/hooks/use-debounce/use-debounce';
 import InputBox from '../../common/components/presentational/input-box';
-import { WrapperContainer, SearchContainer } from './ProductsList.styled';
+import Grid from '../../common/components/presentational/grid';
+import {
+  WrapperContainer,
+  SearchContainer,
+  ProductsContainer
+} from './ProductsList.styled';
 
 const ProductsList = () => {
   /** Local state */
@@ -29,6 +34,9 @@ const ProductsList = () => {
           inputFunc={onSearch}
         />
       </SearchContainer>
+      <ProductsContainer>
+        <Grid />
+      </ProductsContainer>
     </WrapperContainer>
   );
 };

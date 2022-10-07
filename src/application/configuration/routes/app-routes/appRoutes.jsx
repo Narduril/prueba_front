@@ -10,7 +10,7 @@ export const appRoutes = [
       {
         path: '/',
         breadcrumb: 'Home',
-        element: <Navigate to="/products-list" />,
+        element: <Navigate to="/products-list" />
       },
       {
         path: '/products-list',
@@ -19,10 +19,10 @@ export const appRoutes = [
         children: [
           {
             path: '/products-list/:id',
-            element: <ProductDetails />,
-          },
-        ],
-      },
-    ],
-  },
+            element: <ProductDetails />
+          }
+        ]
+      }
+    ]
+  }
 ];
