@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import useDidMount from '../../common/hooks/use-didmount/use-didmount';
 import useDebounce from '../../common/hooks/use-debounce/use-debounce';
+import { getProductsDispatchAction } from '../../application/store/products/dispatchers';
 import InputBox from '../../common/components/core/input-box';
+import MessageText from '../../common/components/core/message-text';
+import Spinner from '../../common/components/core/spinner';
 import Grid from '../../common/components/shared/grid';
+import { wait } from '../../common/utils/timers';
 import {
   WrapperContainer,
   SearchContainer,
@@ -9,19 +15,52 @@ import {
 } from './ProductsList.styled';
 
 const ProductsList = () => {
+  /** Hooks */
+  const dispatch = useDispatch();
+
+  /** States */
+  const products = useSelector((state) => state.products.list);
+
   /** Local state */
+  const [currentProducts, setCurrentProducts] = useState(
+    products.length ? products : []
+  );
+  const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState('');
 
   /** Custom hook */
   const debounceSearchValue = useDebounce({ value: searchValue });
 
   /** Effects */
-  useEffect(() => {
-    console.log(searchValue);
+  useDidMount(() => {
+    dispatch(getProductsDispatchAction());
+  }, []);
+
+  useDidMount(() => {
+    if (products.length) {
+      wait(() => setIsLoading(false));
+      setCurrentProducts(products);
+    }
+  }, [products]);
+
+  useDidMount(() => {
+    if (!isLoading) {
+      if (searchValue) {
+        const searchItems = products.filter((product) => {
+          return (
+            product.brand.toLowerCase().includes(searchValue) ||
+            product.model.toLowerCase().includes(searchValue)
+          );
+        });
+        setCurrentProducts(searchItems);
+      } else {
+        setCurrentProducts(products);
+      }
+    }
   }, [debounceSearchValue]);
 
   /** Events */
-  const onSearch = (value) => setSearchValue(value);
+  const onSearch = (value) => setSearchValue(value.toLowerCase());
 
   return (
     <WrapperContainer>
@@ -35,7 +74,15 @@ const ProductsList = () => {
         />
       </SearchContainer>
       <ProductsContainer>
-        <Grid />
+        {!isLoading ? (
+          currentProducts.length ? (
+            <Grid list={currentProducts} />
+          ) : (
+            <MessageText text={'No se han encontrado resultados.'} />
+          )
+        ) : (
+          <Spinner />
+        )}
       </ProductsContainer>
     </WrapperContainer>
   );

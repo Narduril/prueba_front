@@ -6,6 +6,7 @@ export const getProductsDispatchAction = () => ({
 });
 
 /** Dispatch Action Success */
-export const getProductsDispatchActionSuccess = () => ({
-  type: ProductsActionTypes.GET_PRODUCTS_SUCCESS
+export const getProductsDispatchActionSuccess = (products) => ({
+  type: ProductsActionTypes.GET_PRODUCTS_SUCCESS,
+  products
 });
