@@ -16,7 +16,7 @@ export const config = {
     endpoints: {
       getProductDetails: {
         method: 'GET',
-        request: `${apiParam}/product`,
+        request: `${apiParam}/product`, // pasar id. Ej: /ZmGrkLRPXOTpxsU4jjAcv
         headers: { 'Content-Type': 'application/json' }
       }
     }

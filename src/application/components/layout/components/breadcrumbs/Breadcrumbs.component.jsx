@@ -1,7 +1,7 @@
-import { useLocation } from 'react-router';
+import { useLocation, Link } from 'react-router-dom';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { appRoutes } from '../../../../configuration/routes/app-routes/appRoutes';
-import { Breadcrumbs, Link, Typography } from '@mui/material';
+import { Breadcrumbs, Typography } from '@mui/material';
 import { WrapperContainer } from './Breadcrumbs.styled';
 
 const NextBreadcrumbs = () => {
@@ -15,12 +15,7 @@ const NextBreadcrumbs = () => {
           const isMatched = pathname === match.pathname;
 
           return !isMatched ? (
-            <Link
-              key={`${breadcrumb}-${index}`}
-              underline="hover"
-              color="inherit"
-              href={match.pathname}
-            >
+            <Link key={`${breadcrumb}-${index}`} to={match.pathname}>
               {breadcrumb}
             </Link>
           ) : (

@@ -11,11 +11,15 @@ import {
 const Card = (prop) => {
   const navigate = useNavigate();
 
-  const { image, brand, model, price } = prop;
+  const { productId, image, brand, model, price } = prop;
 
   return (
     <CardContainer
-      onClick={() => navigate(`/products-list/${replaceWhiteSpace(model)}`)}
+      onClick={() =>
+        navigate(`/products-list/${replaceWhiteSpace(model)}`, {
+          state: { id: productId }
+        })
+      }
     >
       <ImageContainer>
         <Image src={image} alt="card" />
