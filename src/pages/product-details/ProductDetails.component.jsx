@@ -1,29 +1,21 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import useDidMount from '../../common/hooks/use-didmount/use-didmount';
+import useDidMount from '../../common/hooks/use-didmount';
 import { getProductDetailsDispatchAction } from '../../application/store/product/dispatchers';
 import { addCartDispatchAction } from '../../application/store/cart/dispatchers';
+import Details from './components/details';
+import Actions from './components/actions';
 import Spinner from '../../common/components/core/spinner';
 import Image from '../../common/components/core/image';
 import { wait } from '../../common/utils/timers';
-import { isString, objectLength } from '../../common/utils/checkers';
-import { Divider, FormControl, MenuItem, Select, Button } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { objectLength } from '../../common/utils/checkers';
+import { Divider } from '@mui/material';
 import {
   WrapperContainer,
   ProductContainer,
   ProductImageContainer,
-  DetailsContainer,
-  Info,
-  InfoList,
-  ListItem,
-  Title,
-  Text,
-  Actions,
-  SelectsContainer,
-  Selectors,
-  ButtonContainer
+  DetailsContainer
 } from './ProductDetails.styled';
 
 const ProductDetails = () => {
@@ -97,99 +89,14 @@ const ProductDetails = () => {
               <Image img={currentProduct.imgUrl} text={currentProduct.model} />
             </ProductImageContainer>
             <DetailsContainer>
-              <Info>
-                <Title>{currentProduct.model}</Title>
-                <Divider />
-                <Text>
-                  <b>Información técnica:</b>
-                </Text>
-                <InfoList>
-                  <ListItem>CPU: {currentProduct.cpu}</ListItem>
-                  <ListItem>RAM: {currentProduct.ram}</ListItem>
-                  <ListItem>SO: {currentProduct.os}</ListItem>
-                  <ListItem>Resolución: {currentProduct.displaySize}</ListItem>
-                  <ListItem>
-                    Batería:
-                    {currentProduct.battery
-                      ? ` ${currentProduct.battery}`
-                      : ' -'}
-                  </ListItem>
-                  <ListItem>
-                    Cámara principal:{' '}
-                    {isString(currentProduct.primaryCamera)
-                      ? currentProduct.primaryCamera
-                      : currentProduct.primaryCamera.join(' ')}
-                  </ListItem>
-                  <ListItem>
-                    Cámara secundaria:{' '}
-                    {isString(currentProduct.secondaryCmera)
-                      ? currentProduct.secondaryCmera
-                      : currentProduct.secondaryCmera.join(' ')}
-                  </ListItem>
-                  <ListItem>Dimensiones: {currentProduct.dimentions}</ListItem>
-                  <ListItem>
-                    Peso:
-                    {currentProduct.weight
-                      ? ` ${currentProduct.weight} gr.`
-                      : ' -'}
-                  </ListItem>
-                </InfoList>
-              </Info>
+              <Details {...currentProduct} />
               <Divider />
-              <Actions>
-                <SelectsContainer>
-                  <Selectors>
-                    <Text>
-                      <b>Almacenamiento:</b>
-                    </Text>
-                    <FormControl sx={{ width: '100%' }}>
-                      <Select
-                        name="storageCode"
-                        value={formState.storageCode}
-                        onChange={handleChange}
-                      >
-                        {currentProduct.options.storages.map((storage) => {
-                          return (
-                            <MenuItem key={storage.code} value={storage.code}>
-                              {storage.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Selectors>
-                  <Selectors>
-                    <Text>
-                      <b>Color:</b>
-                    </Text>
-                    <FormControl sx={{ width: '100%' }}>
-                      <Select
-                        name="colorCode"
-                        value={formState.colorCode}
-                        onChange={handleChange}
-                      >
-                        {currentProduct.options.colors.map((color) => {
-                          return (
-                            <MenuItem key={color.code} value={color.code}>
-                              {color.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Selectors>
-                </SelectsContainer>
-                <ButtonContainer>
-                  <Button
-                    variant="contained"
-                    color="success"
-                    startIcon={<ShoppingCartIcon />}
-                    onClick={handleAddCart}
-                  >
-                    Añadir al carrito
-                  </Button>
-                </ButtonContainer>
-              </Actions>
+              <Actions
+                product={currentProduct}
+                codes={formState}
+                handleChange={handleChange}
+                handleAddCart={handleAddCart}
+              />
             </DetailsContainer>
           </>
         ) : (
