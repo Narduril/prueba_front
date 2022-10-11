@@ -10,6 +10,10 @@ import {
   CartContainer
 } from './Header.styled';
 
+/**
+ * Este componente renderiza la cabecera.
+ * Se muestra un carrito que se actualiza al añadir nuevos items al mismo.
+ */
 const Header = () => {
   /** States */
   const cartCount = useSelector((state) => state.cart.count);

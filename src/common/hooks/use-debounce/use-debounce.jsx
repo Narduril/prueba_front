@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 
-const useDebounce = ({ value, delay, action }) => {
+/**
+ * Custom hook debounce.
+ * @param value texto
+ * @param action función a ejecutar al actualizar el value
+ * @returns debounceValue
+ */
+const useDebounce = ({ value, action }) => {
   const [debounceValue, setDebounceValue] = useState(value);
 
   useEffect(() => {

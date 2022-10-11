@@ -8,7 +8,13 @@ import {
   TextContainer
 } from './Card.styled';
 
+/**
+ * Componente común para la creación de cards de producto
+ * @param { productId, image, brand, model, price } prop
+ * @returns CardContainer
+ */
 const Card = (prop) => {
+  /** Hooks varios */
   const navigate = useNavigate();
 
   const { productId, image, brand, model, price } = prop;

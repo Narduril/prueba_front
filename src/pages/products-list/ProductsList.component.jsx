@@ -14,8 +14,14 @@ import {
   ProductsContainer
 } from './ProductsList.styled';
 
+/**
+ * Este componente renderiza la vista lista de productos.
+ * Hace un dispatch al acceder para obtener la lista de productos.
+ * Si ya esta guardado en el state, no ejecuta la petición.
+ * Disponemos de un debounce para la búsqueda (chequeo por marca y modelo).
+ */
 const ProductsList = () => {
-  /** Hooks */
+  /** Hooks varios */
   const dispatch = useDispatch();
 
   /** States */

@@ -18,8 +18,13 @@ import {
   DetailsContainer
 } from './ProductDetails.styled';
 
+/**
+ * Este componente renderiza la vista detalles de producto.
+ * Mediante el id del producto, hace un dispatch para obtener la información del producto.
+ * Si ya lo tenemos cargado en el state, no hace petición
+ */
 const ProductDetails = () => {
-  /** Hooks */
+  /** Hooks varios */
   const dispatch = useDispatch();
   const location = useLocation();
 
