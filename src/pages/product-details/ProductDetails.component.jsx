@@ -32,32 +32,40 @@ const ProductDetails = () => {
   const location = useLocation();
 
   /** States */
-  const productDetails = useSelector((state) => state.product.details);
+  const productsList = useSelector((state) => state.product.details);
 
   /** Local state */
   const [isLoading, setIsLoading] = useState(true);
+  const [currentProduct, setCurrentProduct] = useState({});
   const [formState, setFormState] = useState({
-    storageCode: objectLength(productDetails)
-      ? productDetails.options.storages[0].code
-      : '',
-    colorCode: objectLength(productDetails)
-      ? productDetails.options.colors[0].code
-      : ''
+    storageCode: '',
+    colorCode: ''
   });
 
   /** Effects */
   useDidMount(() => {
-    dispatch(getProductDetailsDispatchAction(location.state.id));
+    if (!productsList.find((product) => product.id === location.state.id))
+      dispatch(getProductDetailsDispatchAction(location.state.id));
   }, []);
 
   useDidMount(() => {
-    if (objectLength(productDetails))
+    if (productsList.length) {
+      const findedProduct = productsList.find(
+        (product) => product.id === location.state.id
+      );
+      setCurrentProduct(findedProduct ?? {});
+    }
+  }, [productsList]);
+
+  useDidMount(() => {
+    if (objectLength(currentProduct)) {
       setFormState({
-        storageCode: productDetails.options.storages[0].code,
-        colorCode: productDetails.options.colors[0].code
+        storageCode: currentProduct.options.storages[0].code,
+        colorCode: currentProduct.options.colors[0].code
       });
-    wait(() => setIsLoading(false));
-  }, [productDetails]);
+      wait(() => setIsLoading(false));
+    }
+  }, [currentProduct]);
 
   /** Events */
   const handleChange = (e) => {
@@ -73,7 +81,7 @@ const ProductDetails = () => {
 
     dispatch(
       addCartDispatchAction(
-        productDetails.id,
+        currentProduct.id,
         formState.colorCode,
         formState.storageCode
       )
@@ -86,43 +94,43 @@ const ProductDetails = () => {
         {!isLoading ? (
           <>
             <ProductImageContainer>
-              <Image img={productDetails.imgUrl} text={productDetails.model} />
+              <Image img={currentProduct.imgUrl} text={currentProduct.model} />
             </ProductImageContainer>
             <DetailsContainer>
               <Info>
-                <Title>{productDetails.model}</Title>
+                <Title>{currentProduct.model}</Title>
                 <Divider />
                 <Text>
                   <b>Información técnica:</b>
                 </Text>
                 <InfoList>
-                  <ListItem>CPU: {productDetails.cpu}</ListItem>
-                  <ListItem>RAM: {productDetails.ram}</ListItem>
-                  <ListItem>SO: {productDetails.os}</ListItem>
-                  <ListItem>Resolución: {productDetails.displaySize}</ListItem>
+                  <ListItem>CPU: {currentProduct.cpu}</ListItem>
+                  <ListItem>RAM: {currentProduct.ram}</ListItem>
+                  <ListItem>SO: {currentProduct.os}</ListItem>
+                  <ListItem>Resolución: {currentProduct.displaySize}</ListItem>
                   <ListItem>
                     Batería:
-                    {productDetails.battery
-                      ? ` ${productDetails.battery}`
+                    {currentProduct.battery
+                      ? ` ${currentProduct.battery}`
                       : ' -'}
                   </ListItem>
                   <ListItem>
                     Cámara principal:{' '}
-                    {isString(productDetails.primaryCamera)
-                      ? productDetails.primaryCamera
-                      : productDetails.primaryCamera.join(' ')}
+                    {isString(currentProduct.primaryCamera)
+                      ? currentProduct.primaryCamera
+                      : currentProduct.primaryCamera.join(' ')}
                   </ListItem>
                   <ListItem>
                     Cámara secundaria:{' '}
-                    {isString(productDetails.secondaryCmera)
-                      ? productDetails.secondaryCmera
-                      : productDetails.secondaryCmera.join(' ')}
+                    {isString(currentProduct.secondaryCmera)
+                      ? currentProduct.secondaryCmera
+                      : currentProduct.secondaryCmera.join(' ')}
                   </ListItem>
-                  <ListItem>Dimensiones: {productDetails.dimentions}</ListItem>
+                  <ListItem>Dimensiones: {currentProduct.dimentions}</ListItem>
                   <ListItem>
                     Peso:
-                    {productDetails.weight
-                      ? ` ${productDetails.weight} gr.`
+                    {currentProduct.weight
+                      ? ` ${currentProduct.weight} gr.`
                       : ' -'}
                   </ListItem>
                 </InfoList>
@@ -140,7 +148,7 @@ const ProductDetails = () => {
                         value={formState.storageCode}
                         onChange={handleChange}
                       >
-                        {productDetails.options.storages.map((storage) => {
+                        {currentProduct.options.storages.map((storage) => {
                           return (
                             <MenuItem key={storage.code} value={storage.code}>
                               {storage.name}
@@ -160,7 +168,7 @@ const ProductDetails = () => {
                         value={formState.colorCode}
                         onChange={handleChange}
                       >
-                        {productDetails.options.colors.map((color) => {
+                        {currentProduct.options.colors.map((color) => {
                           return (
                             <MenuItem key={color.code} value={color.code}>
                               {color.name}
