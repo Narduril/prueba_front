@@ -4,7 +4,12 @@ import { appRoutes } from '../../../../configuration/routes/app-routes/appRoutes
 import { Breadcrumbs, Typography } from '@mui/material';
 import { WrapperContainer } from './Breadcrumbs.styled';
 
+/**
+ * Este componente renderiza las breadcrumbs.
+ * Nos permite navegar entre secciones y saber donde estamos.
+ */
 const NextBreadcrumbs = () => {
+  /** Hooks varios */
   const breadcrumbs = useBreadcrumbs(appRoutes);
   const { pathname } = useLocation();
 

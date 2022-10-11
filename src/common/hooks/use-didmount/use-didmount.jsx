@@ -2,8 +2,8 @@ import { useRef, useEffect } from 'react';
 
 /**
  * Custom hook de montaje
- * @param func: ejecutar al tener cargado el componente al que se llama
- * @param deps: el valor que se tiene que actualizar para ejecutar el useEffect
+ * @param func ejecutar al tener cargado el componente al que se llama
+ * @param deps el valor que se tiene que actualizar para ejecutar el useEffect
  */
 
 const useDidMount = (func, deps) => {

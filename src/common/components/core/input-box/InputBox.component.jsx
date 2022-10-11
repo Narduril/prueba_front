@@ -1,5 +1,10 @@
 import Input from '@mui/material/Input';
 
+/**
+ * Este componente renderiza un input.
+ * @param { inputId, inputText, inputType, inputColor, inputFunc} prop
+ * @returns Input
+ */
 const InputBox = (prop) => {
   const { inputId, inputText, inputType, inputColor, inputFunc } = prop;
 
