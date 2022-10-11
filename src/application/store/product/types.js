@@ -5,4 +5,4 @@ export const ProductActionTypes = {
 };
 
 /** Default State Values */
-export const productDefaultState = () => ({ details: {} });
+export const productDefaultState = () => ({ details: [] });

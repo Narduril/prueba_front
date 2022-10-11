@@ -33,11 +33,9 @@ const ProductsList = () => {
 
   /** Effects */
   useDidMount(() => {
-    dispatch(getProductsDispatchAction());
-  }, []);
-
-  useDidMount(() => {
-    if (products.length) {
+    if (!products.length) {
+      dispatch(getProductsDispatchAction());
+    } else {
       wait(() => setIsLoading(false));
       setCurrentProducts(products);
     }

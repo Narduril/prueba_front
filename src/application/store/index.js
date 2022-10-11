@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { all } from '@redux-saga/core/effects';
 import { productsReducer, productsSaga } from './products';
 import { productReducer, productSaga } from './product';
 import { cartReducer, cartSaga } from './cart';
+
+/** Persist State */
+const persistConfig = { key: 'app', storage };
 
 /** Root reducers */
 const allReducers = combineReducers({
@@ -29,3 +34,6 @@ export const rootReducer = (state, action) => {
 
   return allReducers(state, action);
 };
+
+/** Persisted Reducer */
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
