@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useDidMount from '../../common/hooks/use-didmount/use-didmount';
-import useDebounce from '../../common/hooks/use-debounce/use-debounce';
+import useDidMount from '../../common/hooks/use-didmount';
+import useDebounce from '../../common/hooks/use-debounce';
 import { getProductsDispatchAction } from '../../application/store/products/dispatchers';
 import InputBox from '../../common/components/core/input-box';
 import MessageText from '../../common/components/core/message-text';

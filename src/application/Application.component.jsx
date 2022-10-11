@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import useDidMount from '../common/hooks/use-didmount/use-didmount';
+import useDidMount from '../common/hooks/use-didmount';
 import { clearStateAppDispatchAction } from './store/app/dispatchers';
 import Routes from './configuration/routes/Routes';
 import GlobalStyles from './styles/global-styles';
