@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Badge, IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -10,6 +11,9 @@ import {
 } from './Header.styled';
 
 const Header = () => {
+  /** States */
+  const cartCount = useSelector((state) => state.cart.count);
+
   return (
     <WrapperHeader>
       <HeaderContainer>
@@ -18,7 +22,7 @@ const Header = () => {
         </Link>
         <CartContainer>
           <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={cartCount} color="primary">
               <ShoppingCartIcon style={{ color: '#000000', fontSize: '30' }} />
             </Badge>
           </IconButton>
